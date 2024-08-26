@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { cartActions } from '../../store';
 
@@ -9,7 +9,6 @@ const ProductItem = (props) => {
   const { title, price, description } = props;
 
 	const dispatch = useDispatch();
-	const cart = useSelector(state => state);
 
 	const addToCartHandler = () => {
 		dispatch(cartActions.addtoCart({
@@ -18,7 +17,6 @@ const ProductItem = (props) => {
 			description,
 			quantity: 1
 		}));
-		console.log(cart);
 	};
 
   return (
