@@ -1,44 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
-
-import { cartActions } from '../../store';
+import { useSelector } from 'react-redux';
 
 import Card from '../UI/Card';
 import classes from './Cart.module.css';
 import CartItem from './CartItem';
 
 const Cart = (props) => {
-
-	const dispatch = useDispatch();
-	const cart = useSelector(state => state.cartItems);
-
-	const incrementHandler = index => {
-		dispatch(cartActions.increment(index));
-	};
-
-	const decrementHandler = (index) => {
-		dispatch(cartActions.decrement(index));
-	};
-
+  const cartItems = useSelector((state) => state.cart.items);
 
   return (
     <Card className={classes.cart}>
       <h2>Your Shopping Cart</h2>
       <ul>
-				{cart.map((item, index) => {
-					let total = item.price * item.quantity;
-
-					let { title, price, quantity } = item;
-
-					return (
-						<CartItem key={item.title} item={{
-							title,
-							price,
-							quantity,
-							total,
-							index
-						}} incrementHandler ={incrementHandler} decrementHandler ={decrementHandler}/>
-					);
-				})}
+        {cartItems.map((item) => (
+          <CartItem
+            key={item.id}
+            item={{
+              id: item.id,
+              title: item.name,
+              quantity: item.quantity,
+              total: item.totalPrice,
+              price: item.price,
+            }}
+          />
+        ))}
       </ul>
     </Card>
   );
